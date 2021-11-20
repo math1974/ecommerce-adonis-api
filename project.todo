@@ -1,0 +1,83 @@
+ALRAC:
+	HOJE:
+		[] CRUD DE USUÁRIOS - CRIAR COMO "DESATIVADO"
+		[] LOGIN - GENERATE JWT TOKEN
+
+		PEDIDOS:
+			INFORMAÇÒES DO PEDIDO:
+				nome, sobrenome, endereço (cep, numero, bairro, complemento, cidade, estado), informaçòes de contato (email, telefone, cpf)
+
+			LOGADO:
+				[] - USER_ID
+				[] - PEDIR INFORMAÇÕES DO ENDEREÇO DE ENTREGA
+				[] -
+
+			DESLOGADO:
+				PEDIDO SEM CADASTRO - SOMENTE VALIDANDO O PAGAMENTO:
+					[] - PEDIR VÁRIAS INFORMAÇÕES PARA O PEDIDO
+					[] - NOME COMPLETO, EMAIL, ENDEREÇO, DATA DE NASCIMENTO, CPF
+
+			[] - INTEGRAÇÀO COM A REDE
+
+		REDEFINIÇÃO DE SENHA:
+			[] - ENVIAR EMAIL
+			[] - VALIDAR SE TOKEN É VÁLIDO
+
+			ROTA DE ATUALIZAR PASSWORD:
+				[] - UPDATE USER
+				[] - VALIDAR SE O TOKEN/CÓDIGO É VÁLIDO
+
+	FLUXO:
+		1. ESCOLHA DO PRODUTO
+		2. ESCOLHA DA VARIAÇÃO/COR E DO TAMANHO
+		3 - VERIFICAR FRETE VIA CEP
+		4 - Adicionar ao carrinho
+
+		OBS:
+			1. MOSTRAR DISPONIBILIDADE/ESTOQUE
+			2 - mostrar se tem desconto
+
+		EXTRA:
+			1 - ADICIONAR O PRODUTO AOS FAVORITOS
+
+	API [Adonis]:
+		USUÁRIOS:
+			COLUNAS: name, email, cpf, cellphone, landline_phone,
+			gender, born, password, confirm_account_code,
+			confirm_account_token, created_at, updated_at, is_deleted
+
+		ADDRESSES:
+			COLUNAS - street, neighborhood, city, state, complement, cep, user_id
+
+		PRODUCTS:
+			NAME, PRICE, SLUG, TYPE, GENDER, CATEGORY_ID, CREATED_AT, UPDATED_AT, IS_DELETED
+
+			PRODUCT_BRANCHES:
+				COLOR, PRODUCT_ID, THUMB_URL
+
+				PRODUCT_BRANCHES_SIZES:
+					PRODUCT_BRANCH_ID, SIZE, AMOUNT (INTEGER - VERIFICAR SE TEM O BRANCH PELO AMOUNT DOS SIZES), IS_DELETED, CREATED_AT, UPDATED_AT
+
+		CATEGORIES:
+			name, created_at, updated_at, is_deleted
+
+		SALES:
+			id, created_at, address_id
+
+		3 STEPS:
+			IDENTIFICAÇÃO:
+				[] - form do usuário
+
+			ENTREGA:
+				[] -SELECIONAR ENDEREÇO
+				[] - MOSTRAR OS PRODUTOS DA COMPRA (sale_id)
+
+			PAGAMENTO:
+				[] - integração com a REDE/PAGSEGURO
+
+		GENERAL:
+			[] - CRUD DE PRODUTOS PARA DETERMINADO USUÁRIO
+			[] - TABELA DE PREÇO DO PRODUTO
+			[] - CHECKOUT DE PAGAMENTO - REDE
+			[] - INTEGRAÇÃO DE CÁLCULO DE FRETE
+			[] - LOGAR COM EMAIL/FACEBOOK ?
