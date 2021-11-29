@@ -9,8 +9,6 @@ module.exports = () => {
 		try {
 			const data = jwt.verify(token, process.env.ENCRYPTION_KEY);
 
-			console.log(data, typeof data, 'data');
-
 			return data;
 		} catch (error) {
 			return null;

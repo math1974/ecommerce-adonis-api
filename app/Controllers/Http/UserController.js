@@ -6,7 +6,6 @@ const UtilsAPI = use('App/Utils/HandleAPI')();
 class UserController {
     async create({ request, response }) {
 		try {
-			console.log(21312)
 			const data = request.only([
 				'name', 'email', 'password',
 				'cpf', 'born', 'cellphone',
@@ -37,7 +36,6 @@ class UserController {
 
 	async login({ request, response }) {
 		try {
-			console.log(request);
 			const data = request.only(['email', 'password']);
 
 			const requestResponse = await UserService.login(data);

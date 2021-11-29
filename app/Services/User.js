@@ -2,6 +2,7 @@
 
 const User = use('App/Models/User');
 const bcrypt = require('bcryptjs');
+const { omit } = require('lodash');
 const FieldValidator = use('App/Validators/ValidateFields')();
 const AuthUtils = use('App/Utils/Auth')();
 
@@ -12,6 +13,10 @@ module.exports = () => {
 		}
 
 		if (!FieldValidator.isValidEmail(data.email)) {
+			return false;
+		}
+
+		if (!FieldValidator.isValidCpf(data.cpf)) {
 			return false;
 		}
 
@@ -56,7 +61,7 @@ module.exports = () => {
 		return User.create(data);
 	};
 
-	const login = data => {
+	const login = async data => {
 		if (!data.email || !FieldValidator.isValidEmail(data.email) || !data.password) {
 			return {
 				error: true,
@@ -66,7 +71,8 @@ module.exports = () => {
 
 		const user = await User.query()
 			.where('email', data.email)
-			.select('id', 'name', 'email', 'cpf', 'born', 'gender', 'cellphone', 'landline_phone', 'password');
+			.select('id', 'name', 'email', 'cpf', 'born', 'gender', 'cellphone', 'landline_phone', 'password')
+			.first();
 
 		if (!user) {
 			return {
@@ -84,7 +90,7 @@ module.exports = () => {
 			};
 		}
 
-		const info = omit(user, ['password']);
+		const info = omit(user.toJSON(), ['password']);
 
 		return {
 			...info,
